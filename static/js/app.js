@@ -22,7 +22,7 @@ let ufo = data;
 let button = d3.select("#filter-btn");
 
 // Select the form
-let form = d3.select("#datetime");
+let form = d3.select(".filters");
 
 // Create event handlers 
 button.on("click", runEnter);
