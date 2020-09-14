@@ -5,13 +5,13 @@ let tableData = data;
 
 let tbody = d3.select("tbody");
 
-// data.forEach((i) => {
-//     let row = tbody.append("tr");
-//     Object.entries(i).forEach(([key, value]) => {
-//         let cell = row.append("td");
-//         cell.text(value);
-//     });
-// });
+data.forEach((i) => {
+    let row = tbody.append("tr");
+    Object.entries(i).forEach(([key, value]) => {
+        let cell = row.append("td");
+        cell.text(value);
+    });
+});
 
 //creating filtering on Date Search
 
@@ -33,6 +33,9 @@ function runEnter() {
 
     // Prevent the page from refreshing
     d3.event.preventDefault();
+
+    //NEED TO GET TABLE TO BLANK OUT
+    tbody.html("");
 
     // Select the input element and get the raw HTML node
     let inputElement = d3.select("#datetime");
