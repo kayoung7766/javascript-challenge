@@ -61,11 +61,20 @@ function runEnter() {
 
     console.log(inputValue3);
 
+     // Select the state element and get the raw HTML node
+     let inputElement4 = d3.select("#country");
+
+     // Get the value property of the state element
+     let inputValue4 = inputElement4.property("value");
+ 
+     console.log(inputValue4);
+
 
 
     let filteredData = ufo.filter(ufo => ufo.datetime === inputValue1 
         && ufo.city === inputValue2
-        && ufo.state === inputValue3);
+        && ufo.state === inputValue3
+        && ufo.country === inputValue4);
 
     console.log(filteredData);
 
