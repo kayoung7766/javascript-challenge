@@ -10,6 +10,10 @@ body {
   margin: 0;
 }
 
+
+#filter-btn {
+  background-color:#746A68;
+}
 /* The wrapper contains all of the page's content besides the footer, which is pushed to the bottom of the page */
 .wrapper {
   position: relative;
@@ -116,6 +120,8 @@ select {
   opacity: 0;
   animation: subtitle 1.2s forwards linear;
   animation-delay: 1.2s;
+  color: black;
+}
 
 }
 
@@ -225,3 +231,5 @@ select {
     opacity: 1;
   }
 }
+
+
