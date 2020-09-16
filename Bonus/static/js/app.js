@@ -37,15 +37,35 @@ function runEnter() {
     //NEED TO GET TABLE TO BLANK OUT
     tbody.html("");
 
-    // Select the input element and get the raw HTML node
-    let inputElement = d3.select("#datetime");
+    // Select the date element and get the raw HTML node
+    let inputElement1 = d3.select("#datetime");
 
-    // Get the value property of the input element
-    let inputValue = inputElement.property("value");
+    // Get the value property of the date element
+    let inputValue1 = inputElement1.property("value");
 
-    console.log(inputValue);
+    console.log(inputValue1);
 
-    let filteredData = ufo.filter(ufo => ufo.datetime === inputValue);
+    // Select the city element and get the raw HTML node
+    let inputElement2 = d3.select("#city");
+
+    // Get the value property of the city element
+    let inputValue2 = inputElement2.property("value");
+
+    console.log(inputValue2);
+
+    // Select the state element and get the raw HTML node
+    let inputElement3 = d3.select("#state");
+
+    // Get the value property of the state element
+    let inputValue3 = inputElement3.property("value");
+
+    console.log(inputValue3);
+
+
+
+    let filteredData = ufo.filter(ufo => ufo.datetime === inputValue1 
+        && ufo.city === inputValue2
+        && ufo.state === inputValue3);
 
     console.log(filteredData);
 
