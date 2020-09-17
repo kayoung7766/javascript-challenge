@@ -80,10 +80,10 @@ function runEnter() {
 
 
     let filteredData = ufo.filter(ufo => ufo.datetime === inputValue1 
-        && ufo.city === inputValue2
-        && ufo.state === inputValue3
-        && ufo.country === inputValue4
-        && ufo.shape === inputValue5);
+        || ufo.city === inputValue2
+        || ufo.state === inputValue3
+        || ufo.country === inputValue4
+        || ufo.shape === inputValue5);
 
     console.log(filteredData);
 
