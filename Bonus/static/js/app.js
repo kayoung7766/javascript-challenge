@@ -5,93 +5,71 @@ let tableData = data;
 
 let tbody = d3.select("tbody");
 
-data.forEach((i) => {
-    let row = tbody.append("tr");
-    Object.entries(i).forEach(([key, value]) => {
-        let cell = row.append("td");
-        cell.text(value);
-    });
-});
+function mainTable(data) {
 
-//creating filtering on Date Search
-
-// Assign the data from `data.js` to a descriptive variable
-let ufo = data;
-
-// Select the button
-let button = d3.select("#filter-btn");
-
-// Select the form
-let form = d3.selectAll(".filters");
-
-// Create event handlers 
-button.on("click", runEnter);
-form.on("submit", runEnter);
-
-// Complete the event handler function for the form
-function runEnter() {
-
-    // Prevent the page from refreshing
-    d3.event.preventDefault();
-
-    //NEED TO GET TABLE TO BLANK OUT
-    tbody.html("");
-
-    // Select the date element and get the raw HTML node
-    let inputElement1 = d3.select("#datetime");
-
-    // Get the value property of the date element
-    let inputValue1 = inputElement1.property("value");
-
-    console.log(inputValue1);
-
-    // Select the city element and get the raw HTML node
-    let inputElement2 = d3.select("#city");
-
-    // Get the value property of the city element
-    let inputValue2 = inputElement2.property("value");
-
-    console.log(inputValue2);
-
-    // Select the state element and get the raw HTML node
-    let inputElement3 = d3.select("#state");
-
-    // Get the value property of the state element
-    let inputValue3 = inputElement3.property("value");
-
-    console.log(inputValue3);
-
-     // Select the country element and get the raw HTML node
-     let inputElement4 = d3.select("#country");
-
-     // Get the value property of the country element
-     let inputValue4 = inputElement4.property("value");
- 
-     console.log(inputValue4);
-
-      // Select the shape element and get the raw HTML node
-      let inputElement5 = d3.select("#shape");
-
-      // Get the value property of the shape element
-      let inputValue5 = inputElement5.property("value");
-  
-      console.log(inputValue5);
-
-
-
-    let filteredData = ufo.filter(ufo => ufo.datetime === inputValue1
-        || ufo.city === inputValue2
-        || ufo.state === inputValue3
-        || ufo.country === inputValue4
-        || ufo.shape === inputValue5);
-
-    console.log(filteredData);
-
-    filteredData.forEach((i) => {
+    tbody.html("");  // Clear your table if there is something in it
+    data.forEach((i) => {
         let row = tbody.append("tr");
         Object.entries(i).forEach(([key, value]) => {
             let cell = row.append("td");
             cell.text(value);
         });
     });
-};
+}
+
+
+let filters = {}; // empty variable for filters
+
+function FiltersUpdate() {
+
+    // create a variable that when it changes it hold the filter value and id
+    let ElementSelected = d3.select(this).select("input");
+    let ElementValue = ElementSelected.property("value");
+    let IdFiltered = ElementSelected.attr("id")
+
+
+    // Do a conditional statement to identify what filter is running and the value
+
+    if (ElementValue) {
+        filters[IdFiltered] = ElementValue;
+    }
+
+    else {
+        delete filters[IdFiltered];
+    }
+    
+    CreateFilterTable();
+
+}
+
+function CreateFilterTable() {
+    let dataFiltered = tableData; // assigning a new variable to the metadata because it will be the filtered table
+
+    // Loop using Object entries to keep track of the values of the filtered tabled
+
+    Object.entries(filters).forEach(([key, value])=> {
+        dataFiltered = dataFiltered.filter(row => row[key] == value);
+    });
+
+    // Rebuild table using the filtered data
+    mainTable(dataFiltered);
+ 
+}
+
+// Listening event every time we change a filter
+
+d3.selectAll(".filter").on("change", FiltersUpdate);
+
+
+
+// reset button
+
+mainTable(tableData);
+
+let resetButton = d3.select("#reset-btn")
+
+resetButton.on("click", function() {
+    tbody.html("");
+    mainTable(tableData);
+    console.log("The table has been reset")
+})
